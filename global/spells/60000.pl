@@ -79,7 +79,7 @@ sub BuffMembers{
   $buffBot{"tier3"}{Cleric}{HP} = 1447;			#Aegolism / 60
   $buffBot{"tier3"}{Cleric}{SpellHaste} = 3472;		#Blessing of Reverence / 62
   $buffBot{"tier3"}{Druid}{HPRegen} = 1568;		#Regrowth
-  $buffBot{"tier3"}{Druid}{RunSpeed} = 7617;		#Spirit of Eagle
+  $buffBot{"tier3"}{Druid}{RunSpeed} = 2517;		#Spirit of Eagle
   $buffBot{"tier3"}{Enchanter}{ManaRegen} = 2570;	#Koadic's Endless Intellect / 60
   $buffBot{"tier3"}{Enchanter}{MeleeHaste} = 3240;	#Speed of Vallon / 62
   $buffBot{"tier3"}{Magician}{DamageShield} = 3448;	#Shield of Bracken / 63
