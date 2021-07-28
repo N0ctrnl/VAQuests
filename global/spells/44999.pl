@@ -1,36 +1,8 @@
 # VA Buff Crystal
 # Written by N0ctrnl (2016)
 
-# Old Buff Crystals - Only worked for level 44+
-#sub EVENT_ITEM_CLICK_CAST {
-##sub EVENT_SPELL_EFFECT_CLIENT {
-	#  $Zone = $client->GetZoneID();
-	#  if($Zone < 187 || $Zone == 202 || $Zone == 203 || $Zone == 408 || $Zone == 226 || $Zone == 411) {
-  # Acumen first, then the good ones. This keeps MGB from working with the first spell (FoE).
-  ##  if($client->GetLevel() > 44){
-  ##    # Acumen
-  ##    quest::castspell(2886, $client->GetID());
-  ##    # Flight of Eagles
-  ##    quest::castspell(3185, $client->GetID());
-  ##    # Blessing of Aegolism
-  ##    quest::castspell(2510, $client->GetID());
-  ##    # Brell's Mountainous Barrier
-  ##    quest::castspell(2590, $client->GetID());
-  ##    # Call of the Predator
-  ##    quest::castspell(1464, $client->GetID());
-  ##    # Spiritual Purity
-  ##    quest::castspell(2629, $client->GetID());
-  ##    # Koadic's Endless Intellest
-  ##    quest::castspell(2570, $client->GetID());
-  ##    # Speed of the Brood
-  ##    quest::castspell(2895, $client->GetID());
-  ##    # Khura's Focusing
-  ##    quest::castspell(2530, $client->GetID());
-  ##    # Talisman of the Brute
-  ##    quest::castspell(1580, $client->GetID());
-  ##  }
-  ##}
-
+#my @indoor_zones = (18,31,32,36,39,40,41,42,44,64,65,66,73,80,81,88,89,97,101,103,104,105,107,108,109,111,112,113,121,123,124,125,128,150,151,153,154,156,157,158,161,162,164,179,200,212,214,216,226,227,228,229,230,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278);
+#my @no_levitate_zones = (39,71,109,112,124,125,158,159,160,163,164,179,223,227,231,239,242,251,273);
 
 sub EVENT_SPELL_EFFECT_CLIENT {
   my @groupMembers;
@@ -52,22 +24,35 @@ BuffMembers(\@groupMembers);
 sub BuffMembers{
   my $members = shift;
   my %buffBot;
+  my @indoor_zones = (18,31,32,36,39,40,41,42,44,64,65,66,73,80,81,88,89,97,101,103,104,105,107,108,109,111,112,113,121,123,124,125,128,150,151,153,154,156,157,158,161,162,164,179,200,212,214,216,226,227,228,229,230,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278);
+  my @no_levitate_zones = (39,71,109,112,124,125,158,159,160,163,164,179,223,227,231,239,242,251,273);
 
   # Levels 1 to 35
   $buffBot{"tier1"}{Cleric}{HP} = 312;			#Valor / 32
   $buffBot{"tier1"}{Cleric}{SpellHaste} = 3576;		#Blessing of Faith / 35
   $buffBot{"tier1"}{Druid}{HPRegen} = 144;		#Regeneration / 34
-  $buffBot{"tier1"}{Druid}{RunSpeed} = 11545;		#Spirit of Wolf / 10
+  if($zoneid ~~ @indoor_zones){
+    $buffBot{"tier1"}{Druid}{RunSpeed} = 4054;		#Spirit of the Shrew / 10
+  } else {
+    $buffBot{"tier1"}{Druid}{RunSpeed} = 11545;		#Spirit of Wolf / 10
+  }
   $buffBot{"tier1"}{Enchanter}{ManaRegen} = 174;		#Clarity / 26
   $buffBot{"tier1"}{Enchanter}{MeleeHaste} = 10;		#Augmentation / 28
   $buffBot{"tier1"}{Magician}{DamageShield} = 479;	#Inferno Shield / 28
-  $buffBot{"tier1"}{Magician}{Levitation} = 970;	#Levitation 
+  if( not $zoneid ~~ @no_levitate_zones){
+    $buffBot{"tier1"}{Magician}{Levitation} = 970;	#Levitation 
+  }
   $buffBot{"tier1"}{Shaman}{HP} = 167;			#Talisman of Tnarg / 32
 	
   # Levels 36 to 65
   $buffBot{"tier2"}{Cleric}{HP} = 1533;			#Heroism / 52
   $buffBot{"tier2"}{Cleric}{SpellHaste} = 3576;		#Blessing of Faith / 35
   $buffBot{"tier2"}{Druid}{HPRegen} = 1568;		#Regrowth / 54
+  if($zoneid ~~ @indoor_zones){
+    $buffBot{"tier2"}{Druid}{RunSpeed} = 4054;		#Spirit of the Shrew / 10
+  } else {
+    $buffBot{"tier2"}{Druid}{RunSpeed} = 11545;		#Spirit of Wolf / 10
+  }
   $buffBot{"tier2"}{Druid}{RunSpeed} = 11545;		#Spirit of Wolf / 10
   $buffBot{"tier2"}{Enchanter}{ManaRegen} = 1693;		#Clarity II / 52
   $buffBot{"tier2"}{Enchanter}{MeleeHaste} = 1708;	#Aanya's Quickening / 53
@@ -79,7 +64,14 @@ sub BuffMembers{
   $buffBot{"tier3"}{Cleric}{HP} = 1447;			#Aegolism / 60
   $buffBot{"tier3"}{Cleric}{SpellHaste} = 3472;		#Blessing of Reverence / 62
   $buffBot{"tier3"}{Druid}{HPRegen} = 1568;		#Regrowth
-  $buffBot{"tier3"}{Druid}{RunSpeed} = 2517;		#Spirit of Eagle
+  if($zoneid ~~ @indoor_zones){
+    $buffBot{"tier3"}{Druid}{RunSpeed} = 4054;		#Spirit of the Shrew / 10
+    if( not $zoneid ~~ @no_levitate_zones){
+      $buffBot{"tier3"}{Magician}{Levitation} = 970;	#Levitation 
+    }
+  } elsif (( not $zoneid ~~ @indoor_zones) && ( not $zoneid ~~ @no_levitate_zones)) {
+    $buffBot{"tier3"}{Druid}{RunSpeed} = 2517;		#Spirit of Eagle
+  }
   $buffBot{"tier3"}{Enchanter}{ManaRegen} = 2570;	#Koadic's Endless Intellect / 60
   $buffBot{"tier3"}{Enchanter}{MeleeHaste} = 3240;	#Speed of Vallon / 62
   $buffBot{"tier3"}{Magician}{DamageShield} = 3448;	#Shield of Bracken / 63
@@ -98,17 +90,28 @@ sub BuffMembers{
   $buffBot{"tier4"}{Shaman}{MeleeProc} = 6667;		#Spirit of the Panther / 69
 	
   foreach my $member (@{$members}){
+
+  # Example from old
+  # quest::castspell(2886, $client->GetID());
+
   my $clientLevel = $member->GetLevel();
     if($clientLevel >= 1 && $clientLevel <= 35){
+      quest::debug($clientLevel);
       my $tier = "tier1";
-      $client->SpellFinished($buffBot{$tier}{Cleric}{HP}, $member, 0); 
+      $member->SpellFinished($buffBot{$tier}{Cleric}{HP}, $member, 100); 
+      #quest::castspell($buffBot{$tier}{Cleric}{HP}, $member); 
+      #      quest::castspell(312, $member); 
+      #   quest::castspell(2570, $client->GetID());
+
       $client->SpellFinished($buffBot{$tier}{Cleric}{SpellHaste}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Druid}{HPRegen}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Druid}{RunSpeed}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Enchanter}{MeleeHaste}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Enchanter}{ManaRegen}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Magician}{DamageShield}, $member, 0); 
-      $client->SpellFinished($buffBot{$tier}{Magician}{Levitation}, $member, 0); 
+      if( not $zoneid ~~ @no_levitate_zones){
+        $client->SpellFinished($buffBot{$tier}{Magician}{Levitation}, $member, 0);
+      }
       $client->SpellFinished($buffBot{$tier}{Shaman}{HP}, $member, 0); 
     } elsif($clientLevel >= 36 && $clientLevel <= 59) {
       my $tier = "tier2";
@@ -119,13 +122,16 @@ sub BuffMembers{
       $client->SpellFinished($buffBot{$tier}{Enchanter}{ManaRegen}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Enchanter}{MeleeHaste}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Magician}{DamageShield}, $member, 0); 
-      $client->SpellFinished($buffBot{$tier}{Magician}{Levitation}, $member, 0); 
+      if( not $zoneid ~~ @no_levitate_zones){
+        $client->SpellFinished($buffBot{$tier}{Magician}{Levitation}, $member, 0); 
+      }
       $client->SpellFinished($buffBot{$tier}{Shaman}{HP}, $member, 0); 
     } elsif($clientLevel >= 60 && $clientLevel <= 70) {
       my $tier = "tier3";
       $client->SpellFinished($buffBot{$tier}{Cleric}{HP}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Cleric}{SpellHaste}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Druid}{HPRegen}, $member, 0); 
+      $client->SpellFinished($buffBot{$tier}{Magician}{Levitation}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Druid}{RunSpeed}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Enchanter}{ManaRegen}, $member, 0); 
       $client->SpellFinished($buffBot{$tier}{Enchanter}{MeleeHaste}, $member, 0); 
