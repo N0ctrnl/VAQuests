@@ -45,20 +45,22 @@ sub BuffMembers{
   $buffBot{"tier1"}{Shaman}{HP} = 167;			#Talisman of Tnarg / 32
 	
   # Levels 36 to 65
-  $buffBot{"tier2"}{Cleric}{HP} = 1533;			#Heroism / 52
+  $buffBot{"tier2"}{Cleric}{HP} = 3692;			#Temperence / 40 (Was Heroism)
   $buffBot{"tier2"}{Cleric}{SpellHaste} = 3576;		#Blessing of Faith / 35
-  $buffBot{"tier2"}{Druid}{HPRegen} = 1568;		#Regrowth / 54
+  $buffBot{"tier2"}{Druid}{HPRegen} = 145;		#Chloroplast / 42
   if($zoneid ~~ @indoor_zones){
     $buffBot{"tier2"}{Druid}{RunSpeed} = 4054;		#Spirit of the Shrew / 10
   } else {
     $buffBot{"tier2"}{Druid}{RunSpeed} = 11545;		#Spirit of Wolf / 10
   }
-  $buffBot{"tier2"}{Druid}{RunSpeed} = 11545;		#Spirit of Wolf / 10
-  $buffBot{"tier2"}{Enchanter}{ManaRegen} = 1693;		#Clarity II / 52
+  #  $buffBot{"tier2"}{Enchanter}{ManaRegen} = 1693;		#Clarity II / 52
+  $buffBot{"tier2"}{Enchanter}{ManaRegen} = 1694;		#Boon of the Clear Mind / 42
   $buffBot{"tier2"}{Enchanter}{MeleeHaste} = 1708;	#Aanya's Quickening / 53
+  $buffBot{"tier2"}{Enchanter}{MeleeHaste} = 172;	#Swift Like the Wind / 47
   $buffBot{"tier2"}{Magician}{DamageShield} = 412;	#Shield of Lava / 45
   $buffBot{"tier2"}{Magician}{Levitation} = 970;	#Levitation 
-  $buffBot{"tier2"}{Shaman}{HP} = 1585;			#Talisman of Kragg / 55
+  #  $buffBot{"tier2"}{Shaman}{HP} = 1585;			#Talisman of Kragg / 55
+  $buffBot{"tier2"}{Shaman}{HP} = 2525;			#Harnessing of Spirit / 46
 
   # Levels 60 to 65
   $buffBot{"tier3"}{Cleric}{HP} = 1447;			#Aegolism / 60
