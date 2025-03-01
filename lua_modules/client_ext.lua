@@ -238,25 +238,10 @@ function Client:HasItem(itemid, trade)
 	end
 
 	--corpse
-	local bodycount = self:GetCorpseCount();
-	
-	if(bodycount > 0) then
-		for b = 0, bodycount, 1 do
-			local bodyid = self:GetCorpseID(b); 
-			for i = Slot.PossessionsBegin, Slot.PossessionsEnd, 1 do
-				local thisitem = self:GetCorpseItemAt(bodyid, i);
-				if(thisitem == itemid) then
-					return true;
-				end
-			end
-			for i = Slot.GeneralBagsBegin, Slot.CursorBagEnd, 1 do
-				local thisitem = self:GetCorpseItemAt(bodyid, i);
-				if(thisitem == itemid) then
-					return true;
-				end
-			end
-		end
+	if self:HasItemOnCorpse(itemid) then
+		return true
 	end
+
 	return false;
 end
 
@@ -318,4 +303,25 @@ function Client:GetRaidMemberCountInZone()
 		end
 	end
 	return count
+end
+
+function Client:IsClass(...)
+    local class = self:GetClass();
+    if class == 17 then return true end;
+    for i,v in ipairs(arg) do
+        if class == v then
+            return true;
+        end
+    end
+    return false;
+end
+
+function Client:IsRace(...)
+    local race = self:GetBaseRace();
+    for i,v in ipairs(arg) do
+        if race == v then
+            return true;
+        end
+    end
+    return false;
 end
