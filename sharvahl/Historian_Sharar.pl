@@ -7,6 +7,9 @@ sub EVENT_SAY {
     quest::say("You have a braver spirit than mine, friend, but I'm glad that someone is available to assist me. Take care and keep alert. The Khati Sha seem to be very troubled by something of late.");
     quest::summonitem(9061); # Item: Collection of Spirit Lore
   }
+  if ($text=~/what are the khati sha troubled by/i) {
+    quest::say("They have been researching the lore of elder spirits and their relationship to this realm. I really do not have much more information than that. I can only speculate that it has something to do with a disturbance in the spiritual realm. Perhaps...well... I cannot say for sure. If the Animist finds that he can trust you, perhaps you can learn more. I honestly have nothing more to offer you on the subject.");
+  }
 }
 
 sub EVENT_ITEM {

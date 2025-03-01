@@ -1,8 +1,8 @@
 sub EVENT_SPAWN {
   quest::shout("ZERZURA!");
   quest::setglobal("kerafyrm",1,7,"F");
-  #  quest::spawn_condition(sleeper,2,1);
-  #  quest::spawn_condition(sleeper,1,0);
+  quest::spawn_condition(sleeper,2,1);
+  quest::spawn_condition(sleeper,1,0);
   quest::forcedooropen(46);
   quest::settimer("depop",1);
 }

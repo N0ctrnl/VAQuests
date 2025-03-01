@@ -3,7 +3,6 @@
 # fixed an incorrect talisman being accepted for a hand, corrected a typo that 
 # was causing one talisman not to be accepted, corrected the
 # plugin::return_items command
-# items: 9296, 27255, 27256, 27258, 27259, 27266, 27265
 
 sub EVENT_SAY {
   if ($text=~/hail/i) {
@@ -23,10 +22,9 @@ sub EVENT_SAY {
 sub EVENT_ITEM {
   if ((plugin::check_handin(\%itemcount, 9296 => 1)) || (plugin::check_handin(\%itemcount, 27255 => 1)) || (plugin::check_handin(\%itemcount, 27256 => 1)) || (plugin::check_handin(\%itemcount, 27258 => 1)) || (plugin::check_handin(\%itemcount, 27259 => 1)) || (plugin::check_handin(\%itemcount, 27266 => 1))) {
     quest::say("Very well done, $name. Here is how you unlock the entry. Seek out a great dragon statue in the Eastern Wastes and use this key there. Not very different from how you entered my old domain, Veeshan's Peak, now, is it? Haha, yes, I know many things, even dead.");
-    quest::summonitem(27265); # Item: Sleeper's Key
+    quest::summonitem(27265);
     quest::exp(500000);
     quest::set_zone_flag(128);
   }
   plugin::return_items(\%itemcount);
 }
-

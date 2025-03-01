@@ -1,4 +1,3 @@
-# items: 27301, 5833, 27321, 27320, 27300, 5834, 27328, 5835
 sub EVENT_SAY {
   if ($text=~/hail/i) {
     quest::say("Hail to ya, Traveller, and well met! My Name's Garath, a warrior by trade, though I do dabble in some merchanting on the side. My exploring brought me here, and I saw some wonderous things. I ventured inside this ancient tomb with some friends, and oh! The horrors we encountered! I barely made it out alive, but I did manage to pick up some [weapons to trade].");
@@ -18,22 +17,22 @@ sub EVENT_ITEM {
 
   # Priceless Velium Battlehammer => Priceless Velium Fist Wraps
   if (plugin::check_handin(\%itemcount, 27301 => 1)) {
-    quest::summonitem(5833); # Item: Priceless Velium Fist Wraps
+    quest::summonitem(5833);
   }
 
   # Primal Velium Battlehammer => Primal Velium Fist Wraps
   elsif (plugin::check_handin(\%itemcount, 27321 => 1)) {
-    quest::summonitem(27320); # Item: Primal Velium Fist Wraps
+    quest::summonitem(27320);
   }
 
   # Priceless Velium Warsword => Priceless Velium Knight's Sword
   elsif (plugin::check_handin(\%itemcount, 27300 => 1)) {
-    quest::summonitem(5834); # Item: Priceless Velium Knight's Sword
+    quest::summonitem(5834);
   }
 
   # Primal Velium Warsword => Primal Velium Knight's Sword
   elsif (plugin::check_handin(\%itemcount, 27328 => 1)) {
-    quest::summonitem(5835); # Item: Primal Velium Knight's Sword
+    quest::summonitem(5835);
   }
 
   else {

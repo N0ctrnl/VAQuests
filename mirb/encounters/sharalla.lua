@@ -22,8 +22,11 @@ local animals = {
 }
 
 local function make_attackable(mob, attackable)
+  mob:SetSpecialAbility(SpecialAbility.immune_melee, attackable and 0 or 1)
+  mob:SetSpecialAbility(SpecialAbility.immune_magic, attackable and 0 or 1)
   mob:SetSpecialAbility(SpecialAbility.immune_aggro, attackable and 0 or 1)
   mob:SetSpecialAbility(SpecialAbility.immune_aggro_on, attackable and 0 or 1)
+  mob:SetSpecialAbility(SpecialAbility.no_harm_from_client, attackable and 0 or 1)
 end
 
 local function depop_event()
@@ -57,7 +60,7 @@ function corpse_timer(e)
   for npc in npc_list.entries do
     if npc.valid and animals[npc:GetNPCTypeID()] then
       local dist = npc:CalculateDistance(e.self:GetX(), e.self:GetY(), e.self:GetZ())
-      if dist <= 20 then
+      if dist <= 30 then
         eq.get_entity_list():MessageClose(e.self, true, 100, 15, "One of the feral animals gnaws the remains of Sharalla, tearing at her clothes and skin.  Her warder utters a pitiful whine.")
         total_bites = total_bites + 1
         break
@@ -94,7 +97,7 @@ function animal_combat(e)
 end
 
 -- deaggro condition is a random check every 5s (not sure on exact chance)
--- once deaggro, the animal is non-aggroable
+-- once deaggro, the animal is non-aggroable and non-hittable until the next tick
 function animal_timer(e)
   if e.timer == "process" then
     local in_combat = (e.self:GetEntityVariable("combat") == "1")

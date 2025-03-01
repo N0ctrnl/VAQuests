@@ -1,6 +1,6 @@
 local extra_loot;
-local QOS_Inactive = "1,1^4,1,20,0,25^7,1^13,1^14,1^15,1^17,1^21,1^31,1^35,1^42,1";
-local QOS_Active = "1,1^4,1,20,0,25^7,1^13,1^14,1^15,1^17,1^31,1^21,1^42,1";
+local QOS_Inactive = "18,1^19,1^20,1^21,1^24,1^25,1";
+local QOS_Active = "1,1,6000,100^4,1,20,0,25^7,1^13,1^14,1^15,1^17,1^31,1^21,1^42,1";
 local instance_id;
 local raid_list;
 local QOS;
@@ -18,7 +18,7 @@ end
 
 function QOS_HP(e)
   if (e.hp_event == 20) then
-    -- if the 4 mini's are stillup then no damage can be done to QOS till they are dead
+    -- if the 4 mini's are stillup then disable the QOS till they are dead
     e.self:SetPseudoRoot(false); --becomes unrooted
     local entity_list = eq.get_entity_list();
     if (entity_list:IsMobSpawnedByNpcTypeID(241058)) then
@@ -28,10 +28,10 @@ function QOS_HP(e)
     end
 
     if (entity_list:IsMobSpawnedByNpcTypeID(241058) or entity_list:IsMobSpawnedByNpcTypeID(241053) or entity_list:IsMobSpawnedByNpcTypeID(241046) or entity_list:IsMobSpawnedByNpcTypeID(241051)) then
-      -- disable damage to the QOS till the minis are dead
+      -- disable the QOS till the minis are dead
       e.self:ProcessSpecialAbilities(QOS_Inactive); 
-      --e.self:WipeHateList();  
-      --e.self:SetOOCRegen(0);  
+      e.self:WipeHateList();  
+      e.self:SetOOCRegen(0);  
     end
   end
 end
@@ -61,22 +61,13 @@ function QOS_Death(e)
     eq.spawn2(241075, 0, 0, 379, -797, 8.23, 1); -- NPC: #Ritanas_Ornate_Chest
   end
   --
-  eq.zone_emote(15,"Your victory has shattered the shroud of magic cloaking the dungeon's treasure.");
+  eq.zone_emote(15,"Your victory has weakened a shroud of magic cloaking the dungeon's treasure.");
   -- The Earthen Chest
   eq.spawn2(241076, 0, 0, 448, -727, 8.23, 385); -- NPC: #The_Earthen_Chest
   -- The Gem Encrusted Chest
   eq.spawn2(241077, 0, 0, 309, -727, 8.23, 130); -- NPC: #The_Gem_Encrusted_Chest
   
   UpdateLockout();
-end
-
-function Qos_Combat(e)
-	if (e.joined == true) then
-		eq.set_timer("OOBcheck", 6 * 1000);
-		
-	else
-		eq.stop_timer("OOBcheck");
-	end
 end
 
 function Mini_Combat(e)
@@ -121,6 +112,7 @@ function Kamoj_Combat(e)
 							e.self:SetHate(top_client, 1, 1)
 							top_client:MovePCInstance(241, instance_id, 380, -726, 27, 1);
 						
+							e.self:WipeHateList();
 						end
 					end
 			end	
@@ -142,93 +134,12 @@ function Golem_Combat(e)
 	end
 end
 
-function Priest_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"The ethereal voices wind together, climbing over each other in a beautiful duet. The sound is filled with pure beauty, and the owners of these voices semm enraptured and unaware of your existence.");
-		eq.depop_with_timer();
-	end
-end
-
-function Tree_Death(e)
-		local rand = math.random(1,4); -- rand 4 does nothing
-		if (rand == 1) then
-			e.self:CastSpell(4173,e.self:GetID()); --mental renewal
-			eq.local_emote({e.self:GetX(), e.self:GetY(), e.self:GetZ()}, 15, 100,"As the great relic of nature splinters, its fading life force dusts you with a natural magic.");
-		elseif (rand == 2) then
-			eq.spawn2(241081,0,0,e.self:GetX(),e.self:GetY(),e.self:GetZ(),e.self:GetHeading());
-			eq.spawn2(241081,0,0,e.self:GetX(),e.self:GetY(),e.self:GetZ(),e.self:GetHeading());
-			eq.spawn2(241081,0,0,e.self:GetX(),e.self:GetY(),e.self:GetZ(),e.self:GetHeading());
-			eq.local_emote({e.self:GetX(), e.self:GetY(), e.self:GetZ()}, 15, 100,"Angry saplings break through the splintered tree and rush toward you!");
-		elseif (rand == 3) then
-			e.self:CastSpell(4174,e.self:GetID()); --physical renewal
-			eq.local_emote({e.self:GetX(), e.self:GetY(), e.self:GetZ()}, 15, 100,"As the great relic of nature splinters, its fading life force dusts you with a natural magic.");
-		end
-end
-
-function Trash_Timer(e)
-    if (e.self:CalculateDistance(e.self:GetSpawnPointX(), e.self:GetSpawnPointY(), e.self:GetSpawnPointZ()) >200) then
-	eq.zone_emote(13, e.self:GetCleanName() .. " gathers power from the sand at its feet as it moves across the ground "); --mob powers up permanently even after returning to bind
-        eq.modify_npc_stat("min_hit", "361");
-        eq.modify_npc_stat("max_hit", "1235");
-		
-	e.self:ModifyNPCStat("attack_delay","15");
-		
-	e.self:SetSpecialAbility(12, 1);
-		
-	eq.stop_timer("distcheck");
-	end
-end
-
-function Trash_Combat(e)
-	if (e.joined == true) then  
-		eq.set_timer("distcheck", 6000);
-	else
-		eq.stop_timer("distcheck");
-	end
-end
-
-function Trap1_Combat(e)
-	if (e.joined == true) then
-		e.self:CastSpell(4163,e.other:GetID(),0,0); -- Spell:Curse of the Desert should fire 5 times consecutively on every person in range
-		eq.local_emote({e.self:GetX(), e.self:GetY(), e.self:GetZ()}, 0, 70,"Stinging sand assaults you from every direction.");
-		eq.depop_with_timer();
-	end
-end
-
 function event_encounter_load(e)
-  eq.register_npc_event('takc', Event.timer, 241001, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241001, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241003, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241003, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241036, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241036, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241013, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241013, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241035, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241035, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241015, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241015, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241007, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241007, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241008, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241008, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241012, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241012, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241004, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241004, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241000, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241000, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241006, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241006, Trash_Combat);
-  eq.register_npc_event('takc', Event.timer, 241019, Trash_Timer);
-  eq.register_npc_event('takc', Event.combat, 241019, Trash_Combat);
   eq.register_npc_event('takc', Event.death_complete, 241058, Mini_Death);
   eq.register_npc_event('takc', Event.death_complete, 241053, Mini_Death);
   eq.register_npc_event('takc', Event.death_complete, 241046, Mini_Death);
   eq.register_npc_event('takc', Event.death_complete, 241051, Mini_Death);
   eq.register_npc_event('takc', Event.death_complete, 241052, QOS_Death);
-  eq.register_npc_event('takc', Event.combat, 241052, Qos_Combat);
-  eq.register_npc_event('takc', Event.death, 241018, Tree_Death);
   eq.register_npc_event('takc', Event.combat,         241046, Mini_Combat);
   eq.register_npc_event('takc', Event.combat,         241053, Mini_Combat);
   eq.register_npc_event('takc', Event.combat,         241058, Mini_Combat);
@@ -236,14 +147,11 @@ function event_encounter_load(e)
   eq.register_npc_event('takc', Event.combat,         241069, Kamoj_Combat);
   eq.register_npc_event('takc', Event.combat,         241071, Kamoj_Combat);
   eq.register_npc_event('takc', Event.timer,         241046, Mini_Timer);
-  eq.register_npc_event('takc', Event.timer,         241052, Mini_Timer);
   eq.register_npc_event('takc', Event.timer,         241053, Mini_Timer);
   eq.register_npc_event('takc', Event.timer,         241058, Mini_Timer);
   eq.register_npc_event('takc', Event.timer,         241051, Mini_Timer);
   eq.register_npc_event('takc', Event.combat,        241079, Split_Combat);
   eq.register_npc_event('takc', Event.combat,        241080, Golem_Combat);
-  eq.register_npc_event('takc', Event.combat,        241084, Priest_Combat);
-  eq.register_npc_event('takc', Event.combat,        241082, Trap1_Combat);
 	
   eq.register_npc_event('takc', Event.hp,             241052, QOS_HP);
   eq.register_npc_event('takc', Event.spawn,          241052, QOS_Spawn);

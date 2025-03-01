@@ -19,7 +19,8 @@ function event_signal(e)
 		emote_phase = e.signal;
 		-- half second heartbeat to resume the emote thread
 		eq.set_timer("emote_hb",500);
-		ThreadManager:Clear();
+		--ThreadManager:Clear();
+		ThreadManager:Stop();
 		ThreadManager:Create("PhaseEmotes",PhaseEmotes);
 	end
 end

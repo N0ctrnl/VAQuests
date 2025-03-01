@@ -98,11 +98,6 @@ end
 
 function Warrior_Spawn(e)
 eq.set_timer("emotes", 5 * 1000);
-eq.set_timer("animation", math.random(2,3) * 1000);
-end
-
-function Minion_Spawn(e)
-eq.set_timer("animation", math.random(2,3) * 1000);
 end
 
 function Warrior_Timer(e)
@@ -117,82 +112,21 @@ function Warrior_Timer(e)
 				eq.get_entity_list():MessageClose(e.self, false, 100, 0, "Warrior of Gukta shouts, 'Back you spawn of evil, the warriors of Gukta shall always prevail.");
 			end
 		eq.set_timer("emotes", math.random(30,45) * 1000);
-	elseif(e.timer == "animation") then
-		e.self:DoAnim(8); -- mainhand slash
 	end
 end
 
 function Warrior_Signal(e)
   if (e.signal == 1) then
  	eq.start(1); -- start the grid (one way depop)
-	eq.stop_timer("emotes");
-	eq.stop_timer("animation");
-	e.self:SetRunning(true);
   end
 end
 
 function Evoker_Signal(e)
   if (e.signal == 1) then
  	eq.start(2); -- start the grid (one way depop)
-	e.self:SetRunning(true);
   end
 end
 
-function Prophet_Signal(e)
-  if (e.signal == 1) then
- 	eq.start(4); -- start the grid (one way depop)
-	e.self:SetRunning(true);
-  end
-end
-
-function Flavor_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"Master Evoker of Gukta says, 'You must hurry, I thought we could handle this with just the four of us so we told the others to go on ahead but the ritual has taken so much out of me that we are barely managing to contain that creature in the room.  We need your help, if you can distract it my apprentices may be able to complete the ritual which will cut off its source of dark power.");
-		eq.depop_with_timer();
-	end
-end
-
-function Text1_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"You hear the sound of chanting coming from deeper within the dungeon, an invisible force seems to be pulling you east.");
-		eq.depop_with_timer();
-	end
-end
-
-function Text2_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"You hear chanting coming from below you to the north.");
-		eq.depop_with_timer();
-	end
-end
-
-function Text3_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"Whispers of several voices can be heard from straight ahead.");
-		eq.depop_with_timer();
-	end
-end
-
-function Text4_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"The sound of chanting echoes from the left.");
-		eq.depop_with_timer();
-	end
-end
-
-function Text5_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"An evil aura calls to you from the left.");
-		eq.depop_with_timer();
-	end
-end
-
-function Text6_Combat(e)
-	if (e.joined == true) then
-		eq.zone_emote(15,"An evil aura calls to you from the right.");
-		eq.depop_with_timer();
-	end
-end
 
 function Spawn_Creeper()
   eq.spawn2(259129, 0, 0, -97, 328, -23, 260); -- NPC: #The_Cavern_Creeper
@@ -221,8 +155,6 @@ function Leklos_Death(e)
   eq.zone_emote(15,"A Warrior of Gukta says, 'Thank you for the help adventurers, but you must hurry deeper into the cavern. Some of our resident Evokers are trying to take care of a cursed creature that ambushed some of us on the way down. I am sure they could use your help. Please listen for chanting and you should find them easily. We shall make our way back to Gukta and report to the others what is going on.");
   eq.signal(259040,1); --signal npcs to path to zi and depop
   eq.signal(259039,1); --signal npcs to path to zi and depop
-  eq.spawn2(259126, 0, 0, 364, -70, -3, 272); -- NPC: Text1 (259126)
-  eq.spawn2(259127, 0, 0, -50, 28, 4, 272); -- NPC: Text2 (259127)
 end
 
 function Spawn_Spore()
@@ -307,7 +239,6 @@ function Creeper_Death(e)
   eq.spawn2(259136, 0, 0, e.self:GetX()-10, e.self:GetY(), e.self:GetZ(), 0); -- NPC: a_cavern_crawler
   eq.spawn2(259136, 0, 0, e.self:GetX()-15, e.self:GetY(), e.self:GetZ(), 0); -- NPC: a_cavern_crawler
   eq.spawn2(259136, 0, 0, e.self:GetX()-20, e.self:GetY(), e.self:GetZ(), 0); -- NPC: a_cavern_crawler
-  eq.spawn2(259130, 0, 0, -153, 754, -60, 272); -- NPC: Text3 (259130)
   Spawn_Spore();
 end
 
@@ -318,11 +249,9 @@ end
 function Gragna_Combat(e)
 	if (e.joined == true) then
 		eq.set_timer("OOBcheck", 6 * 1000);
-		eq.set_timer("heal", 65 * 1000);
 		
 	else
 		eq.stop_timer("OOBcheck");
-		eq.stop_timer("heal");
 	end
 end
 
@@ -337,9 +266,6 @@ function Gragna_Timer(e)
 			else
 				eq.set_timer("OOBcheck", 6 * 1000);
 			end
-	elseif (e.timer == "heal") then
-		eq.zone_emote(15,"The four healers begin to glow increasing the power of the Paladin. Knight of Gukta says, 'Oh great Mithaniel please bless these great fighters with your healing touch.");
-		e.self:CastedSpellFinished(4458, e.self:GetHateTop()); -- Spell: Mithaniel's Blessing
 	end
 end
 
@@ -347,14 +273,6 @@ function Spore_Death(e)
   eq.signal(259159, 259135); -- NPC: zone_status
   eq.zone_emote(15,"Prophet of Gukta says, 'Your assistance has helped turn the tide of battle, but it is not over yet.  The Cursed Keeper knows you are here and he has sent more minions to hinder your progress.  You must continue on as time is running short. Four of our clerics and a paladin have run ahead to take care of the kidnapper Gragna but they will need your help. Listen for his voice and you should be able to find him. We will return to Gukta and make a report on your progress.");
   eq.zone_emote(15,"You hear a voice from the south. Knight of Gukta shouts, 'Please noble adventurers hurry to me, our time is running short.");
-  eq.signal(259134,1); --signal npcs to path to zi and depop
-  eq.spawn2(259075, 0, 0, -193, 699, -61, 17); -- a_blighted_Jin_master (259075)
-  eq.spawn2(259104, 0, 0, -179, 699, -61, 17); -- a_cackling_Dar_assassin (259104)
-  eq.spawn2(259107, 0, 0, -169, 699, -61, 17); -- a_cursed_recluse (259107)
-  eq.spawn2(259119, 0, 0, -147, 699, -61, 17); -- a_doomed_Yunta_witchdoctor (259119)
-  eq.spawn2(259119, 0, 0, -132, 699, -61, 17); -- a_doomed_Yunta_witchdoctor (259119)
-  eq.spawn2(259131, 0, 0, -134, 442, -21, 272); -- NPC: Text4 (259131)
-  eq.spawn2(259131, 0, 0, -456, 450, -39, 272); -- NPC: Text4 (259131)
   Spawn_Gragna();
 end
 
@@ -389,53 +307,18 @@ function Gragna_Death(e)
   eq.signal(259159, 259151); -- NPC: zone_status
   eq.signal(259149,1); --signal npcs to path to zi and depop
   eq.signal(259150,1); --signal npcs to path to zi and depop
-  eq.zone_emote(15,"Your victory has weakened a shroud of magic cloaking the dungeon's treasure.");
-  eq.zone_emote(13,"As the final blow is struck an angry voice fills the halls. The Cursed Keeper says, 'You meddlesome fools, you have ruined my plans, but I shall have my retribution. Come to me if you dare and I will show you the glory of everlasting pain.");
-  eq.zone_emote(5,"You hear the voice of the master evoker in your mind, 'Your efforts have paid off, we have stopped him from accomplishing his plans and now we must ask that you destroy him while he is weak. Please make haste to the back of the dungeon and rescue our brethren.");
-  eq.spawn2(259132, 0, 0, -454, 578, -23, 272); -- NPC: Text5 (259132)
-  eq.spawn2(259133, 0, 0, -462, 738, -26, 272); -- NPC: Text6 (259133)
   Spawn_Keeper();
 end
 
 function Knight_Signal(e)
   if (e.signal == 1) then
  	eq.start(3); -- start the grid (one way depop)
-	e.self:SetRunning(true);
   end
-end
-
-function Bidip_Signal(e)
-	e.self:SetAppearance(0); --standing
-end
-
-function Keeper_Combat(e)
-	if (e.joined == true) then
-		eq.set_timer("OOBcheck", 6 * 1000);
-		
-	else
-		eq.stop_timer("OOBcheck");
-	end
-end
-
-
-function Keeper_Timer(e)
-	if(e.timer=="OOBcheck") then
-		eq.stop_timer("OOBcheck");
-			if (e.self:GetX() > -640) then
-				e.self:CastSpell(3230,e.self:GetID()); -- Spell: Balance of the Nameless
-				e.self:GotoBind();
-				e.self:WipeHateList();
-			else
-				eq.set_timer("OOBcheck", 6 * 1000);
-			end
-	end
 end
 
 function Keeper_Death(e)
   eq.signal(259159, 259154); -- NPC: zone_status
-  eq.signal(259124,1); --signal Bidip stand up
 	
-  eq.zone_emote(15,"Your victory has shattered the shroud of magic surrounding the dungeon's treasure.");
   eq.zone_emote(15,"Bidip Moktu stands up and shakes his head in an effort to regain his senses. Realizing that he has been saved he cheers looks at you all and salutes. Bidip Moktu says, 'Thank you so much for saving me. Please take this chest as a token of my gratitude.");
 
   -- Bidip`s Ornate Chest
@@ -445,7 +328,7 @@ function Keeper_Death(e)
   eq.spawn2(259155, 0, 0, -722, 756, -27, 114); -- NPC: #Cursed_Keepers`_Slimy_Chest
 
   -- Gragna`s Worn Chest
-  eq.spawn2(259156, 0, 0, -689, 734, -27, 473); -- NPC: #Gragna`s_Worn_Chest
+  eq.spawn2(259156, 0, 0, -689, 734, -27, 114); -- NPC: #Gragna`s_Worn_Chest
 
   -- Leklos` Bonepile
   eq.spawn2(259157, 0, 0, -674, 814, -27, 328); -- NPC: #Leklos`_Bonepile
@@ -465,30 +348,17 @@ function event_encounter_load(e)
   eq.register_npc_event('gukg', Event.spawn, 259154, Pop_Keeper);
   eq.register_npc_event('gukg', Event.hp, 259129, Creeper_Hp);
   eq.register_npc_event('gukg', Event.spawn, 259129, Pop_Creeper);
-  eq.register_npc_event('gukg', Event.spawn, 259039, Minion_Spawn);
   eq.register_npc_event('gukg', Event.spawn, 259040, Warrior_Spawn);
   eq.register_npc_event('gukg', Event.timer, 259040, Warrior_Timer);
-  eq.register_npc_event('gukg', Event.timer, 259039, Warrior_Timer);
   eq.register_npc_event('gukg', Event.signal, 259149, Knight_Signal);
-  eq.register_npc_event('gukg', Event.signal, 259134, Prophet_Signal);
   eq.register_npc_event('gukg', Event.signal, 259150, Knight_Signal);
-  eq.register_npc_event('gukg', Event.signal, 259124, Bidip_Signal);
   eq.register_npc_event('gukg', Event.signal, 259128, Evoker_Signal);
   eq.register_npc_event('gukg', Event.signal, 259039, Warrior_Signal);
   eq.register_npc_event('gukg', Event.signal, 259040, Warrior_Signal);
   eq.register_npc_event('gukg', Event.hp, 259135, Cursed_Hp);
   eq.register_npc_event('gukg', Event.spawn, 259135, Pop_Cursed);
-  eq.register_npc_event('gukg', Event.combat,         259054, Flavor_Combat);
-  eq.register_npc_event('gukg', Event.combat,         259126, Text1_Combat);
-  eq.register_npc_event('gukg', Event.combat,         259127, Text2_Combat);
-  eq.register_npc_event('gukg', Event.combat,         259130, Text3_Combat);
-  eq.register_npc_event('gukg', Event.combat,         259131, Text4_Combat);
-  eq.register_npc_event('gukg', Event.combat,         259132, Text5_Combat);
-  eq.register_npc_event('gukg', Event.combat,         259133, Text6_Combat);
   eq.register_npc_event('gukg', Event.combat,         259151, Gragna_Combat);
   eq.register_npc_event('gukg', Event.timer,         259151, Gragna_Timer);
-  eq.register_npc_event('gukg', Event.combat,         259154, Keeper_Combat);
-  eq.register_npc_event('gukg', Event.timer,         259154, Keeper_Timer);
   eq.register_npc_event('gukg', Event.combat,         259047, Leklos_Combat);
   eq.register_npc_event('gukg', Event.timer,         259047, Mini_Timer);
   eq.register_npc_event('gukg', Event.spawn, 259047, Pop_Leklos);

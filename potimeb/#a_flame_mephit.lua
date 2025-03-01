@@ -13,4 +13,5 @@ function event_death_complete(e)
 	-- spawn 2x an_inferno_mephit
 	eq.spawn2(eq.ChooseRandom(223095,223234,223235,223236,223237),0,0,math.random(min_x,max_x),math.random(min_y,max_y),495,e.self:GetHeading());
 	eq.spawn2(eq.ChooseRandom(223095,223234,223235,223236,223237),0,0,math.random(min_x,max_x),math.random(min_y,max_y),495,e.self:GetHeading());
+
 end
