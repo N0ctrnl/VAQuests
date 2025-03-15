@@ -22,7 +22,7 @@ my $random_result = int(rand(5000));
 
 # Illusions - 3001-4700
 #if(($itemcount{150003} || $itemcount{150004} || $itemcount{150005}) && $random_result>4500 && $random_result<4951){  
-  if(quest::handin({150003 = 1} || {150004 = 1} || {150005 = 1})){
+  if(quest::handin({150003 = 1}) || quest::handin({150004 = 1}) || quest::handin({150005 = 1})){
     quest::summonitem(quest::ChooseRandom(40612,40613,40684,40685,40714,40746,40778,40779,43971,43972,54833,54913,40638));
     plugin::Whisper("This token is in fine shape. Use this item to mask your appearance.");
 #    quest::gmsay("$random_result");
