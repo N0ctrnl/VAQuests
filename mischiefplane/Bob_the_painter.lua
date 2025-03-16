@@ -2,6 +2,14 @@
 #Zone ID: 126
 #NPC Name: Bob the Painter]]
 
+function event_say(e)
+	if e.message:findi("Hail") then
+		e.self:Say("Ey yo. Ever read the book of mischief? The libraries full of em! Say... if you ever find the missin chapter on wealth, lemme know. I'll give ya this here pot o' gold I found.");
+	elseif e.message:findi("library") then
+		e.self:Say("I'd love ta check out a book... especially the book of mischief. Every time I get a library card, them freakin monkeys come and take it from me. Say, maybe you can get one from em!");
+	end
+end
+
 function event_trade(e)
 	local item_lib = require("items");
 	

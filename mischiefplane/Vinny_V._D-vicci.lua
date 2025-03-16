@@ -15,6 +15,8 @@ function event_say(e)
 		e.self:Say("Pot o` gold? Bwahahahaha! Only pot around is them ones I warsh my clothes in. Gotta be careful though, one time I dropped one of dem woids of wealth in and BADABING no clothes jus a stinkin coin that wouldn't buy me a fishin grub.");
 	elseif e.message:findi("man") then  -- BASED ON TLP PROGRESSION SERVERS
 		e.self:Say("Foist ya gotta help my brudda Bob. Getcherself one of em books 'es talkin about. Den... Ya's gotta find me dem woids of wealth. Well? Watcha standin here gawkin at me for? Get movin!");
+	elseif e.message:findi("mouse") then
+		e.self:Say(""Yah well, can't say I blame ya kid. Ol` Bristle may be soft but he's a wily one. Rats in the sewers kid, they gots some cards. Have yerself some fun wid em. I'll see ya around.");
 	end
 end
 
@@ -28,7 +30,7 @@ function event_trade(e)   -- BASED ON TLP PROGRESSION SERVERS
     local item_lib = require("items");
 
     if item_lib.check_turn_in(e.trade, {item1 = 6876}) then -- Item: lucky skunk's foot
-        e.self:QuestSay(e.other,"Nice work kid. Now I'm feelin lucky. So's ya say ya wanna learn about cards right? Lemme tell ya. Them cards are nice but lets have some REAL fun. Yer resourceful, I like that. What say we take over this joint fer ourselves? Ol' Bristle's gettin soft, ya know? Wadda ya say? [" .. eq.say_link("Man") .. "] or mouse?");
+        e.self:QuestSay(e.other,"Nice work kid. Now I'm feelin lucky. So's ya say ya wanna learn about cards right? Lemme tell ya. Them cards are nice but lets have some REAL fun. Yer resourceful, I like that. What say we take over this joint fer ourselves? Ol' Bristle's gettin soft, ya know? Wadda ya say? [" .. eq.say_link("Man") .. "] or [" .. eq.say_link("Mouse") .. "] ?");
 		e.other:AddEXP(500);
 	end
 

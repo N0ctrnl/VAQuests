@@ -4,6 +4,11 @@
 
 #NPC Name: Peachy D`Vicci ]]
 
+function event_say(e)
+	if e.message:findi("Hail") then
+		e.self:Say("Hey there! Wanna test your luck? I have here my mystery satchel filled with gifts. Sometimes you get something nice, and sometimes ya get nothing at all. Wanna give it a shot? It only costs two funnies.");
+	end
+end
 
 function event_trade(e)
 	local item_lib = require("items");
