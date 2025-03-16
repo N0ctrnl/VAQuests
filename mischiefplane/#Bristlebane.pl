@@ -22,6 +22,7 @@ my $mobnpc5;
 
 sub EVENT_SPAWN {
   quest::setnexthpevent(80);
+  quest::settimer("bbshout",10);
   # quest::settimer(1,2700);
 }
 
@@ -99,11 +100,16 @@ sub EVENT_HP {
 #  quest::settimer("engaged",10800); #npc will despawn in 3hrs if not killed to # avoid leaving him up forever
 # }
 
-# sub EVENT_TIMER {
+sub EVENT_TIMER {
+  if ($timer eq "bbshout") {
+    quest::stoptimer("bbshout");
+    quest::shout("Bah! Where be the Cazic Thule Puppet! Ridiculously funny!");
+	quest::settimer("bbshout",300);
+  }
 #  quest::depop_withtimer();
 #  quest::stoptimer("engaged");
 #  quest::stoptimer(1);
-# }
+}
 
 # sub EVENT_DEATH_COMPLETE {
 #  quest::stoptimer("engaged");
