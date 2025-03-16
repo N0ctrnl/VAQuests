@@ -8,8 +8,6 @@ function event_say(e)
 		
 		elseif(e.message:findi("everfrost")) then
 			e.self:CastSpell(4180,e.other:GetID(),0,1); -- Spell: Teleport: Everfrost
-		elseif(e.message:findi("nedaria")) then
-			e.self:CastSpell(4580,e.other:GetID(),0,1); -- Spell: Teleport: Nedaria
 		elseif(e.message:findi("butcherblock")) then
 			e.self:CastSpell(4179,e.other:GetID(),0,1); -- Spell: Teleport: Butcherblock
 
@@ -22,9 +20,7 @@ function event_say(e)
 		end
 	else --no Adventurers Stone
 		if(e.message:findi("hail")) then
-			e.self:Say("You will have to excuse me, I am quite busy studying this Farstone and the possibility of using the magic stored inside of it.  Perhaps you should talk to those at the Wayfarer camps to see if they have any use for you.  I have enough time to send you to [" .. eq.say_link("Nedaria's Landing") .. "], if you'd like.");
-		elseif(e.message:findi("nedaria")) then
-			e.self:CastSpell(4580,e.other:GetID(),0,1); -- Spell: Teleport: Nedaria
+			e.self:Say("You will have to excuse me, I am quite busy studying this Farstone and the possibility of using the magic stored inside of it.  Perhaps you should talk to those at the Wayfarer camps to see if they have any use for you.");
 		end
 	end
 end
