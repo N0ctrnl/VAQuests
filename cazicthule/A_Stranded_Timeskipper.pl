@@ -6,7 +6,7 @@ sub EVENT_SAY {
     if ($zoneid == 48){
       quest::doanim(42);
       quest::say("Off you go!");
-      quest::MovePCInstance(48, 3, -38.1, 71.4, 1.9, 122)
+      quest::MovePCInstance(48, 3, -70.72, 48.84, 3.75, 10.25)
     }
   }
 }
