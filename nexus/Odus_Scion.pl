@@ -1,6 +1,6 @@
 sub EVENT_SAY {
   if ($text=~/Hail/i){
-    quest::say("Hello there. The spires are undergoing maintenance. If you need to know more about [" . quest::saylink("travel to Toxxulia Forest") . "], I can help you with this.");
+    quest::say("Hello there. The spires are undergoing maintenance. If you would like to [" . quest::saylink("travel to Toxxulia Forest") . "], I will be happy to send you on your way!");
   }
   # Old Tox - Ender
   if ($text=~/travel to Tox/i){
