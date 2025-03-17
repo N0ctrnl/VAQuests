@@ -16,7 +16,7 @@ function event_say(e)
 	elseif e.message:findi("man") then  -- BASED ON TLP PROGRESSION SERVERS
 		e.self:Say("Foist ya gotta help my brudda Bob. Getcherself one of em books 'es talkin about. Den... Ya's gotta find me dem woids of wealth. Well? Watcha standin here gawkin at me for? Get movin!");
 	elseif e.message:findi("mouse") then
-		e.self:Say(""Yah well, can't say I blame ya kid. Ol` Bristle may be soft but he's a wily one. Rats in the sewers kid, they gots some cards. Have yerself some fun wid em. I'll see ya around.");
+		e.self:Say("Yah well, can't say I blame ya kid. Ol` Bristle may be soft but he's a wily one. Rats in the sewers kid, they gots some cards. Have yerself some fun wid em. I'll see ya around.");
 	end
 end
 
