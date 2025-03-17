@@ -21,10 +21,29 @@ sub EVENT_SAY {
 }
 
 sub EVENT_ITEM {
-  if ($item1 ~~ [5835, 27320, 27321, 27322, 27323, 27324, 27325, 27326, 27327, 27328, 29440, 29438, 29433, 29437, 29436, 29441, 29434, 29444, 29435, 29442, 29443, 29439] && $item2 ~~ [5835, 27320, 27321, 27322, 27323, 27324, 27325, 27326, 27327, 27328, 29440, 29438, 29433, 29437, 29436, 29441, 29434, 29444, 29435, 29442, 29443, 29439] && $item3 ~~ [5835, 27320, 27321, 27322, 27323, 27324, 27325, 27326, 27327, 27328, 29440, 29438, 29433, 29437, 29436, 29441, 29434, 29444, 29435, 29442, 29443, 29439] && $item4 ~~ [5835, 27320, 27321, 27322, 27323, 27324, 27325, 27326, 27327, 27328, 29440, 29438, 29433, 29437, 29436, 29441, 29434, 29444, 29435, 29442, 29443, 29439]) {
-    quest::emote("smiles 'These should improve my skills nicely! Please tell your friends!'");
-    quest::summonitem(150001);#Essence of the Tomb
-    quest::setglobal("tomb_aug",1,5,"F");
+  my @valid_items = (
+    5835,  27320, 27321, 27322, 27323, 27324, 27325, 27326,
+    27327, 27328, 29440, 29438, 29433, 29437, 29436, 29441,
+    29434, 29444, 29435, 29442, 29443, 29439
+  );
+
+  if (!$item1 || !$item2 || !$item3 || !$item4) {
+    quest::say("I need four items at a time");
+    return;
   }
-  plugin::return_items(\%itemcount);
+
+  my $handin = ();
+  foreach my $item (($item1, $item2, $item3, $item4)) {
+    foreach my $check (@valid_items) { 
+      if ($item == $check) {
+        $handin{$item} = 1;
+      }
+    }
+  }
+
+  if (quest::handin( \%handin ) ) {
+    quest::emote("smiles 'These should improve my skills nicely! Please tell your friends!'");
+    quest::summonitem(150001); # Essence of the Tomb
+    quest::setglobal( "tomb_aug", 1, 5, "F" );
+  }
 }#END of FILE Zone:eastwastes  ID:116608 -- Belath_the_Trader 
