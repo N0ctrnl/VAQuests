@@ -17,6 +17,7 @@ sub EVENT_SAY {
     if($str=~/zoneinfo/i){
       quest::say("Zone: $zone");
       quest::say("Zone ID: $zoneid");
+      quest::say("Zonesn: $zonesn");
       quest::say("Zone Instance: $instanceversion");
       quest::say("Zone Instance Version: $instanceversion");
     }
