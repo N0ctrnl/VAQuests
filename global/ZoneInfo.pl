@@ -14,6 +14,12 @@ sub EVENT_SAY {
     if($str=~/Hail/i){
       quest::say("Hello $name.  You are of GM status, level $status.  I will follow your [commands].");
     }
+    if($str=~/zoneinfo/i){
+      quest::say("Zone: $zone");
+      quest::say("Zone ID: $zoneid");
+      quest::say("Zone Instance: $instanceversion");
+      quest::say("Zone Instance Version: $instanceversion");
+    }
     if($count==6){
       ($firstword, $secondword,$thirdword,$fourthword,$fifthword,$sixthword) = $str =~ m/(.*\ )(.*\ )(.*\ )(.*\ )(.*\ )(.*)$/;
     }elsif($count==5){
