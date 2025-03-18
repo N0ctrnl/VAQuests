@@ -37,7 +37,7 @@ sub EVENT_SAY {
     }
     # Sleeper's Tomb
     if ($zoneid == 128){
-      quest::MovePCInstance(128, , , , , )
+      quest::MovePCInstance(128, 5, 0, 0, 4, 133)
     }
   }
 }
