@@ -1,9 +1,9 @@
 sub EVENT_SAY {
   if ($text=~/hail/i) {
-    quest::say("Greetings, ${name}! If you wish, I can send you to a much different and more difficult version of this zone. Just [" . quest::saylink("say the word") . !"]");
+    quest::say("Greetings, ${name}! If you wish, I can send you to a much different and more difficult version of this zone. Just [" . quest::saylink("say the word") . "] !");
   }
   elsif ($text=~/say the word/i) {
-    # The Hole 238.5
+    # The Hole
     if ($zoneid == 39){
       quest::doanim(42);
       quest::say("Off you go!");
