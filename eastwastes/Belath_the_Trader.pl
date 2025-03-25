@@ -46,4 +46,5 @@ sub EVENT_ITEM {
     quest::summonitem(150001); # Essence of the Tomb
     quest::setglobal( "tomb_aug", 1, 5, "F" );
   }
-}#END of FILE Zone:eastwastes  ID:116608 -- Belath_the_Trader 
+}
+#END of FILE Zone:eastwastes  ID:116608 -- Belath_the_Trader 
