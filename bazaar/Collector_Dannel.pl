@@ -11,7 +11,7 @@ sub EVENT_ITEM {
 
   # Common Reward - 0-4500
   ## Buff Crystals
-  if(plugin::check_handin(\%itemcount, 150003 => 1) || plugin::check_handin(\%itemcount, 150004 => 1) || plugin::check_handin(\%itemcount, 150005 => 1)){
+  if(plugin::check_handin(\%itemcount, 150005 => 1)){
     if($random_result <= 4500){
       # Common Reward - 1-4500
       ## Buff Crystals
