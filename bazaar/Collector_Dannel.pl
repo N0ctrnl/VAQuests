@@ -16,7 +16,7 @@ sub EVENT_ITEM {
   }
 
   ## 20-slot Bags
-  elsif(plugin::check_handin(\%itemcount, 150021 => 1) && $random_result <= 4500){
+  elsif(plugin::check_handin(\%itemcount, 150021 => 1) && $random_result <= 4200){
     quest::summonitem(quest::ChooseRandom(77404,81803));
     plugin::Whisper("Thank you so much! He's what I call a normal bag. I think you'll be impressed!");
   }
@@ -29,7 +29,7 @@ sub EVENT_ITEM {
   }
 
   ## 32-slot Bags
-  elsif((plugin::check_handin(\%itemcount, 150021 => 1)) && ($random_result => 4501 && $random_result <= 4950)){
+  elsif((plugin::check_handin(\%itemcount, 150021 => 1)) && ($random_result => 4201 && $random_result <= 4700)){
     quest::summonitem(quest::ChooseRandom(77405,67633));
     plugin::Whisper("Thank you so much! He's what I call a medium bag. I think you'll be impressed!");
   }
@@ -46,7 +46,7 @@ sub EVENT_ITEM {
   }
 
   ## 40-slot Bags
-  elsif(plugin::check_handin(\%itemcount, 150021  => 1) && ($random_result => 4951 && $random_result <= 5000)){
+  elsif(plugin::check_handin(\%itemcount, 150021  => 1) && ($random_result => 4701 && $random_result <= 5000)){
     quest::summonitem(quest::ChooseRandom(139831,101686));
     plugin::Whisper("Thank you so much! He's what I call a large bag. I think you'll be impressed!");
   }
