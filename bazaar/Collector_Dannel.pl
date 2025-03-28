@@ -16,7 +16,7 @@ sub EVENT_ITEM {
   }
 
   ## 20-slot Bags
-  elsif(plugin::check_handin(\%itemcount, XXX => 1) && $random_result<4500){
+  elsif(plugin::check_handin(\%itemcount, 150021 => 1) && $random_result<4500){
     quest::summonitem(quest::ChooseRandom(77404,81803));
     plugin::Whisper("Thank you so much! He's what I call a normal bag. I think you'll be impressed!");
   }
