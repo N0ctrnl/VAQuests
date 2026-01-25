@@ -22,16 +22,16 @@ sub EVENT_SAY {
         quest::say(quest::saylink("torment flags", 0, "Plane of Torment flags") . " - Plane of Torment access and progression");
         quest::say(quest::saylink("valor flags", 0, "Plane of Valor flags") . " - Plane of Valor access and progression");
         quest::say(quest::saylink("storms flags", 0, "Plane of Storms flags") . " - Plane of Storms access and progression");
-        quest::say(quest::saylink("tactics flags", 0, "Plane of  Tactics flags") . " - Plane of Tactics access and progression");
-        quest::say(quest::saylink("air flags", 0, "Air flags") . " - Plane of Air access and progression");
-        quest::say(quest::saylink("water flags", 0, "Water flags") . " - Plane of Water access and progression");
-        quest::say(quest::saylink("fire flags", 0, "Fire flags") . " - Plane of Fire access and progression");
-        quest::say(quest::saylink("earth flags", 0, "Earth flags") . " - Plane of Earth access and progression");
-        quest::say(quest::saylink("time flags", 0, "Time flags") . " - Plane of Time access and progression");
-        quest::say(quest::saylink("honor flags", 0, "Honor flags") . " - Halls of Honor access and progression");
-        quest::say(quest::saylink("solrotower flags", 0, "SolRotower flags") . " - Solrotower access and progression");
-        quest::say(quest::saylink("bothunder flags", 0, "BoThunder flags") . " - Bothunder access and progression");
-        quest::say(quest::saylink("codecay flags", 0, "Codecay flags") . " - Codecay access and progression");
+        quest::say(quest::saylink("tactics flags", 0, "Plane of Tactics flags") . " - Plane of Tactics access and progression");
+        quest::say(quest::saylink("air flags", 0, "Plane of Air flags") . " - Plane of Air access and progression");
+        quest::say(quest::saylink("water flags", 0, "Plane of Water flags") . " - Plane of Water access and progression");
+        quest::say(quest::saylink("fire flags", 0, "Plane of Fire flags") . " - Plane of Fire access and progression");
+        quest::say(quest::saylink("earth flags", 0, "Plane of Earth flags") . " - Plane of Earth access and progression");
+        quest::say(quest::saylink("time flags", 0, "Plane of Time flags") . " - Plane of Time access and progression");
+        quest::say(quest::saylink("honor flags", 0, "Halls of Honor flags") . " - Halls of Honor access and progression");
+        quest::say(quest::saylink("solrotower flags", 0, "Solusek Ro's Tower flags") . " - Solrotower access and progression");
+        quest::say(quest::saylink("bothunder flags", 0, "Bastion of Thunder flags") . " - Bothunder access and progression");
+        quest::say(quest::saylink("codecay flags", 0, "Crypt of Decay flags") . " - Codecay access and progression");
         quest::say(quest::saylink("all flags", 0, "All flags") . " - Grant ALL flags at once");
         return;
     }
